@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -11,11 +12,10 @@
     }
   </style>
 </head>
-<body class="min-h-screen bg-gray-50 flex items-center justify-center p-4 sm:p-8 font-sans text-gray-800">
+<body class="bg-gray-50 p-4 sm:p-8 font-sans text-gray-800">
  
-  <div class="max-w-5xl w-full bg-white rounded-2xl shadow-xl overflow-hidden border-t-8" style="border-color: #ff5400;">
+  <div class="max-w-5xl w-full mx-auto bg-white rounded-2xl shadow-xl overflow-hidden border-t-8" style="border-color: #ff5400;">
    
-    <!-- Header Section -->
     <div class="p-6 sm:p-10 bg-white border-b border-gray-100">
       <div class="flex items-center gap-4 mb-4">
         <div class="p-3 rounded-xl shadow-sm" style="background-color: #fff0e6;">
@@ -33,7 +33,6 @@
 
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-0">
      
-      <!-- Left Column: Interactive Calculator Controls -->
       <div class="lg:col-span-5 p-6 sm:p-10 bg-gray-50 border-r border-gray-100">
         <h2 class="text-xl font-bold mb-6 text-gray-800 flex items-center gap-2">
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ff5400" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -52,7 +51,6 @@
         </h2>
        
         <div class="space-y-6">
-          <!-- Slider 1: Full SRP -->
           <div class="space-y-2">
             <div class="flex justify-between items-center">
               <label class="text-sm font-semibold text-gray-700">Device Full SRP</label>
@@ -64,19 +62,17 @@
             />
           </div>
 
-          <!-- Slider 2: Discounted Price -->
           <div class="space-y-2">
             <div class="flex justify-between items-center">
               <label class="text-sm font-semibold text-gray-700">Discounted Device Price</label>
               <span class="font-bold" style="color: #ff5400;" id="discount-val">$300.00</span>
             </div>
             <input
-              type="range" min="0" max="600" step="10" value="300" id="discount-input"
+              type="range" min="0" max="1500" step="10" value="300" id="discount-input"
               class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
             />
           </div>
 
-          <!-- Slider 3: Monthly Fee -->
           <div class="space-y-2">
             <div class="flex justify-between items-center">
               <label class="text-sm font-semibold text-gray-700">Monthly Plan Fee</label>
@@ -88,7 +84,6 @@
             />
           </div>
 
-          <!-- Slider 4: Months -->
           <div class="space-y-2">
             <div class="flex justify-between items-center">
               <label class="text-sm font-semibold text-gray-700">Months Upfront</label>
@@ -101,7 +96,6 @@
           </div>
         </div>
        
-        <!-- Dynamic Pitch Tip -->
         <div class="mt-8 p-4 rounded-xl border" style="background-color: #fff0e6; border-color: #ffd9c2;">
           <h3 class="font-bold flex items-center gap-2 mb-2" style="color: #e64a00;">
             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -115,13 +109,11 @@
         </div>
       </div>
 
-      <!-- Right Column: Visual Comparison -->
       <div class="lg:col-span-7 p-6 sm:p-10">
         <h2 class="text-xl font-bold mb-6 text-gray-800">Cost Comparison</h2>
        
         <div class="space-y-6">
          
-          <!-- Option 1: Standard Option -->
           <div class="bg-white border-2 border-gray-100 rounded-2xl p-5 relative overflow-hidden">
             <div class="flex justify-between items-start mb-4">
               <div>
@@ -152,12 +144,10 @@
             </div>
           </div>
 
-          <!-- VS Divider -->
           <div class="flex items-center justify-center -my-2 relative z-10">
             <span class="bg-gray-100 text-gray-400 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest border-2 border-white shadow-sm">VS</span>
           </div>
 
-          <!-- Option 2: Multi-Month Offer -->
           <div class="bg-white border-2 rounded-2xl p-5 relative overflow-hidden shadow-lg transform transition-all hover:scale-[1.01]" style="border-color: #ff5400;">
             <div class="absolute top-0 right-0 w-32 h-32 bg-opacity-10 rounded-bl-full -mr-10 -mt-10" style="background-color: #ff5400;"></div>
            
@@ -188,11 +178,9 @@
                 <span class="font-bold text-lg" style="color: #ff5400;" id="mm-plan-total"></span>
               </div>
 
-              <!-- Visual Bar Comparison against SRP -->
               <div class="pt-2">
                 <p class="text-xs text-gray-500 mb-2 font-medium">Comparison against Full Device SRP:</p>
                
-                <!-- SRP Bar -->
                 <div class="flex items-center gap-3 mb-2">
                   <div class="w-20 text-xs font-semibold text-gray-400 text-right">Device SRP</div>
                   <div class="flex-1 h-3 bg-gray-100 rounded-full overflow-hidden">
@@ -201,7 +189,6 @@
                   <div class="w-16 text-xs font-bold text-gray-400 pitch-srp"></div>
                 </div>
 
-                <!-- Multi-Month Total Bar -->
                 <div class="flex items-center gap-3">
                   <div class="w-20 text-xs font-bold text-gray-800 text-right">Bundle Total</div>
                   <div class="flex-1 h-3 bg-gray-100 rounded-full overflow-hidden relative">
@@ -220,7 +207,6 @@
   </div>
 
   <script>
-    // State logic transferred to standard JS
     const formatCurrency = (val) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(val);
 
     const srpInput = document.getElementById('srp-input');
@@ -231,7 +217,7 @@
     function calculate() {
       const srp = parseFloat(srpInput.value);
      
-      // Keep discount max linked to current SRP
+      // Keep discount max linked to current SRP dynamically
       discountInput.max = srp;
       if (parseFloat(discountInput.value) > srp) {
         discountInput.value = srp;
