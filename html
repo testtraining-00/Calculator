@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Multi-Month Pitch Visualizer</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Ensures the range sliders use your brand color */
+    input[type=range] {
+      accent-color: #ff5400;
+    }
+  </style>
+</head>
+<body class="min-h-screen bg-gray-50 flex items-center justify-center p-4 sm:p-8 font-sans text-gray-800">
+ 
+  <div class="max-w-5xl w-full bg-white rounded-2xl shadow-xl overflow-hidden border-t-8" style="border-color: #ff5400;">
+   
+    <!-- Header Section -->
+    <div class="p-6 sm:p-10 bg-white border-b border-gray-100">
+      <div class="flex items-center gap-4 mb-4">
+        <div class="p-3 rounded-xl shadow-sm" style="background-color: #fff0e6;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#ff5400" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+            <polyline points="22 4 12 14.01 9 11.01"></polyline>
+          </svg>
+        </div>
+        <h1 class="text-2xl sm:text-3xl font-bold text-gray-900">Multi-Month Upfront Offer Calculator</h1>
+      </div>
+      <p class="text-gray-600 text-lg leading-relaxed max-w-3xl">
+        The most effective strategy when pitching multi-month offers is to compare the combined cost of the discounted device and the multi-month plan fee against the full Suggested Retail Price (SRP).
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-0">
+     
+      <!-- Left Column: Interactive Calculator Controls -->
+      <div class="lg:col-span-5 p-6 sm:p-10 bg-gray-50 border-r border-gray-100">
+        <h2 class="text-xl font-bold mb-6 text-gray-800 flex items-center gap-2">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ff5400" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect>
+            <rect x="9" y="9" width="6" height="6"></rect>
+            <line x1="9" y1="1" x2="9" y2="4"></line>
+            <line x1="15" y1="1" x2="15" y2="4"></line>
+            <line x1="9" y1="20" x2="9" y2="23"></line>
+            <line x1="15" y1="20" x2="15" y2="23"></line>
+            <line x1="20" y1="9" x2="23" y2="9"></line>
+            <line x1="20" y1="14" x2="23" y2="14"></line>
+            <line x1="1" y1="9" x2="4" y2="9"></line>
+            <line x1="1" y1="14" x2="4" y2="14"></line>
+          </svg>
+          Calculate the Value
+        </h2>
+       
+        <div class="space-y-6">
+          <!-- Slider 1: Full SRP -->
+          <div class="space-y-2">
+            <div class="flex justify-between items-center">
+              <label class="text-sm font-semibold text-gray-700">Device Full SRP</label>
+              <span class="font-bold" style="color: #ff5400;" id="srp-val">$600.00</span>
+            </div>
+            <input
+              type="range" min="100" max="1500" step="10" value="600" id="srp-input"
+              class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+            />
+          </div>
+
+          <!-- Slider 2: Discounted Price -->
+          <div class="space-y-2">
+            <div class="flex justify-between items-center">
+              <label class="text-sm font-semibold text-gray-700">Discounted Device Price</label>
+              <span class="font-bold" style="color: #ff5400;" id="discount-val">$300.00</span>
+            </div>
+            <input
+              type="range" min="0" max="600" step="10" value="300" id="discount-input"
+              class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+            />
+          </div>
+
+          <!-- Slider 3: Monthly Fee -->
+          <div class="space-y-2">
+            <div class="flex justify-between items-center">
+              <label class="text-sm font-semibold text-gray-700">Monthly Plan Fee</label>
+              <span class="font-bold" style="color: #ff5400;" id="fee-val">$50.00</span>
+            </div>
+            <input
+              type="range" min="10" max="150" step="5" value="50" id="monthly-fee-input"
+              class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+            />
+          </div>
+
+          <!-- Slider 4: Months -->
+          <div class="space-y-2">
+            <div class="flex justify-between items-center">
+              <label class="text-sm font-semibold text-gray-700">Months Upfront</label>
+              <span class="font-bold" style="color: #ff5400;" id="months-val">6 Months</span>
+            </div>
+            <input
+              type="range" min="2" max="12" step="1" value="6" id="months-input"
+              class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+            />
+          </div>
+        </div>
+       
+        <!-- Dynamic Pitch Tip -->
+        <div class="mt-8 p-4 rounded-xl border" style="background-color: #fff0e6; border-color: #ffd9c2;">
+          <h3 class="font-bold flex items-center gap-2 mb-2" style="color: #e64a00;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+            </svg>
+            The Pitch
+          </h3>
+          <p class="text-sm text-gray-800 leading-tight">
+            "Instead of paying <span class="pitch-srp"></span> just for the phone, you can get the phone <strong>AND <span id="pitch-months"></span> months of service</strong> for <span id="pitch-compare"></span> the same price (<strong id="pitch-total"></strong>)!"
+          </p>
+        </div>
+      </div>
+
+      <!-- Right Column: Visual Comparison -->
+      <div class="lg:col-span-7 p-6 sm:p-10">
+        <h2 class="text-xl font-bold mb-6 text-gray-800">Cost Comparison</h2>
+       
+        <div class="space-y-6">
+         
+          <!-- Option 1: Standard Option -->
+          <div class="bg-white border-2 border-gray-100 rounded-2xl p-5 relative overflow-hidden">
+            <div class="flex justify-between items-start mb-4">
+              <div>
+                <h3 class="text-lg font-bold text-gray-500 uppercase tracking-wide text-sm">Standard Option</h3>
+                <p class="text-gray-400 text-xs mt-1">No Offer Applied</p>
+              </div>
+              <div class="text-right">
+                <span class="text-2xl font-black text-gray-400" id="std-total"></span>
+                <p class="text-gray-400 text-xs font-semibold">Total Initial Cost</p>
+              </div>
+            </div>
+           
+            <div class="space-y-3 relative z-10">
+              <div class="flex justify-between items-center text-sm">
+                <span class="flex items-center gap-2 text-gray-600">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
+                  Device Price (Full SRP)
+                </span>
+                <span class="font-semibold std-srp"></span>
+              </div>
+              <div class="flex justify-between items-center text-sm">
+                <span class="flex items-center gap-2 text-gray-600">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                  Service Plan (1-month fee)
+                </span>
+                <span class="font-semibold std-fee"></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- VS Divider -->
+          <div class="flex items-center justify-center -my-2 relative z-10">
+            <span class="bg-gray-100 text-gray-400 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest border-2 border-white shadow-sm">VS</span>
+          </div>
+
+          <!-- Option 2: Multi-Month Offer -->
+          <div class="bg-white border-2 rounded-2xl p-5 relative overflow-hidden shadow-lg transform transition-all hover:scale-[1.01]" style="border-color: #ff5400;">
+            <div class="absolute top-0 right-0 w-32 h-32 bg-opacity-10 rounded-bl-full -mr-10 -mt-10" style="background-color: #ff5400;"></div>
+           
+            <div class="flex justify-between items-start mb-4 relative z-10">
+              <div>
+                <h3 class="text-lg font-black uppercase tracking-wide" style="color: #ff5400;">Multi-Month Offer</h3>
+                <div class="inline-block mt-1 px-2 py-0.5 rounded text-xs font-bold text-white" style="background-color: #ff5400;">Recommended Pitch</div>
+              </div>
+              <div class="text-right">
+                <span class="text-3xl font-black text-gray-900" id="mm-total"></span>
+                <p class="text-gray-500 text-xs font-semibold">Total Upfront Cost</p>
+              </div>
+            </div>
+           
+            <div class="space-y-3 relative z-10">
+              <div class="flex justify-between items-center text-sm">
+                <span class="flex items-center gap-2 font-bold text-gray-800">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ff5400" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
+                  Discounted Device Price
+                </span>
+                <span class="font-bold text-lg" style="color: #ff5400;" id="mm-discount"></span>
+              </div>
+              <div class="flex justify-between items-center text-sm pb-3 border-b border-gray-100">
+                <span class="flex items-center gap-2 font-bold text-gray-800">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ff5400" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                  <span id="mm-months-text"></span>
+                </span>
+                <span class="font-bold text-lg" style="color: #ff5400;" id="mm-plan-total"></span>
+              </div>
+
+              <!-- Visual Bar Comparison against SRP -->
+              <div class="pt-2">
+                <p class="text-xs text-gray-500 mb-2 font-medium">Comparison against Full Device SRP:</p>
+               
+                <!-- SRP Bar -->
+                <div class="flex items-center gap-3 mb-2">
+                  <div class="w-20 text-xs font-semibold text-gray-400 text-right">Device SRP</div>
+                  <div class="flex-1 h-3 bg-gray-100 rounded-full overflow-hidden">
+                    <div class="h-full bg-gray-400 rounded-full" style="width: 100%;"></div>
+                  </div>
+                  <div class="w-16 text-xs font-bold text-gray-400 pitch-srp"></div>
+                </div>
+
+                <!-- Multi-Month Total Bar -->
+                <div class="flex items-center gap-3">
+                  <div class="w-20 text-xs font-bold text-gray-800 text-right">Bundle Total</div>
+                  <div class="flex-1 h-3 bg-gray-100 rounded-full overflow-hidden relative">
+                    <div id="bundle-bar-fill" class="h-full rounded-full transition-all duration-300" style="background-color: #ff5400;"></div>
+                  </div>
+                  <div class="w-16 text-xs font-black" style="color: #ff5400;" id="bar-mm-text"></div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // State logic transferred to standard JS
+    const formatCurrency = (val) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(val);
+
+    const srpInput = document.getElementById('srp-input');
+    const discountInput = document.getElementById('discount-input');
+    const monthlyFeeInput = document.getElementById('monthly-fee-input');
+    const monthsInput = document.getElementById('months-input');
+
+    function calculate() {
+      const srp = parseFloat(srpInput.value);
+     
+      // Keep discount max linked to current SRP
+      discountInput.max = srp;
+      if (parseFloat(discountInput.value) > srp) {
+        discountInput.value = srp;
+      }
+     
+      const discount = parseFloat(discountInput.value);
+      const monthlyFee = parseFloat(monthlyFeeInput.value);
+      const months = parseFloat(monthsInput.value);
+
+      // Math
+      const standardTotal = srp + monthlyFee;
+      const multiMonthTotal = discount + (monthlyFee * months);
+      const multiMonthPlanTotal = monthlyFee * months;
+      const diffVsSRP = multiMonthTotal - srp;
+
+      // Update Labels next to sliders
+      document.getElementById('srp-val').innerText = formatCurrency(srp);
+      document.getElementById('discount-val').innerText = formatCurrency(discount);
+      document.getElementById('fee-val').innerText = formatCurrency(monthlyFee);
+      document.getElementById('months-val').innerText = `${months} Months`;
+
+      // Pitch Details
+      document.querySelectorAll('.pitch-srp').forEach(el => el.innerText = formatCurrency(srp));
+      document.getElementById('pitch-months').innerText = months;
+      document.getElementById('pitch-compare').innerText = diffVsSRP <= 0 ? 'less than' : 'around';
+      document.getElementById('pitch-total').innerText = formatCurrency(multiMonthTotal);
+
+      // Standard Option Details
+      document.getElementById('std-total').innerText = formatCurrency(standardTotal);
+      document.querySelectorAll('.std-srp').forEach(el => el.innerText = formatCurrency(srp));
+      document.querySelectorAll('.std-fee').forEach(el => el.innerText = formatCurrency(monthlyFee));
+
+      // Multi-Month Option Details
+      document.getElementById('mm-total').innerText = formatCurrency(multiMonthTotal);
+      document.getElementById('mm-discount').innerText = formatCurrency(discount);
+      document.getElementById('mm-months-text').innerText = `${months}-Month Upfront Plan Total`;
+      document.getElementById('mm-plan-total').innerText = formatCurrency(multiMonthPlanTotal);
+
+      // Comparison Bar Graph Update
+      document.getElementById('bar-mm-text').innerText = formatCurrency(multiMonthTotal);
+      document.getElementById('bundle-bar-fill').style.width = `${Math.min((multiMonthTotal / srp) * 100, 100)}%`;
+    }
+
+    // Attach listeners
+    srpInput.addEventListener('input', calculate);
+    discountInput.addEventListener('input', calculate);
+    monthlyFeeInput.addEventListener('input', calculate);
+    monthsInput.addEventListener('input', calculate);
+
+    // Initial calculation on load
+    calculate();
+  </script>
+</body>
+</html>
